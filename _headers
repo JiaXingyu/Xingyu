@@ -1,0 +1,23 @@
+# Untuk halaman /secure/page
+<IfModule mod_headers.c>
+    <Location "/secure/page">
+        Header always set X-Frame-Options DENY
+        Header always set X-Content-Type-Options nosniff
+        Header always set Referrer-Policy no-referrer
+    </Location>
+</IfModule>
+
+# Untuk semua file di /static/
+<IfModule mod_headers.c>
+    <FilesMatch "^/static/">
+        Header always set Access-Control-Allow-Origin "*"
+        Header always set X-Robots-Tag "nosnippet"
+    </FilesMatch>
+</IfModule>
+
+# Untuk domain https://xingyu.pages.dev/
+<IfModule mod_headers.c>
+    <If "%{HTTP_HOST} == 'xingyu.pages.dev'">
+        Header always unset X-Robots-Tag
+    </If>
+</IfModule>
